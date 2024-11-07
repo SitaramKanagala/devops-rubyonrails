@@ -1,0 +1,31 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: todo-app-pipeline
+  namespace: todo-app
+spec:
+  tasks:
+    - name: fetch-source
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: 'https://github.com/your-github-username/your-repo-name'
+        - name: revision
+          value: main
+    - name: build-image
+      runAfter: [fetch-source]
+      taskRef:
+        name: buildah
+      params:
+        - name: IMAGE
+          value: 'docker.io/your-docker-hub-username/todo-app:latest'
+    - name: push-image
+      runAfter: [build-image]
+      taskRef:
+        name: buildah
+      params:
+        - name: IMAGE
+          value: 'docker.io/your-docker-hub-username/todo-app:latest'
+        - name: TLSVERIFY
+          value: 'false'

@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= File.read("/run/secrets/POSTGRES_USER").strip if File.exist?("/run/secrets/POSTGRES_USER") %>
+  password: <%= File.read("/run/secrets/POSTGRES_PASSWORD").strip if File.exist?("/run/secrets/POSTGRES_PASSWORD") %>
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: your_app_name_development
+
+test:
+  <<: *default
+  database: your_app_name_test
+
+production:
+  <<: *default
+  database: your_app_name_production
+

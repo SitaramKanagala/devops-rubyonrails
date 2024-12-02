@@ -41,7 +41,7 @@ group :development, :test do
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
 
-  gem 'active_model_serializers', '~> 0.10.0'
+  gem 'active_model_serializers', '~> 0.10.15'
 
   
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
